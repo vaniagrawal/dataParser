@@ -30,9 +30,9 @@ public class Utils {
 
         for (int i = 1; i < lines.length; i++) {
             int indexOfQuote = lines[i].indexOf("\"");
-            if(indexOfQuote == -1){
+            if(indexOfQuote != -1){
                 int indexOf2ndQuote = lines[i].indexOf("\"", indexOfQuote+1);
-                String originalWord = lines[i].substring(indexOfQuote, indexOf2ndQuote + 1);
+                String originalWord = lines[i].substring(indexOfQuote, indexOf2ndQuote+1);
                 String newWord = originalWord.replaceAll("\"", "").replaceAll(",", "");
 
                 lines[i] = lines[i].replace(originalWord, newWord);
