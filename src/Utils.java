@@ -55,14 +55,5 @@ public class Utils {
 
         return result;
     }
-    public static String replaceAll(String replacedThing, String word ){
-        int indexOFReplacer = word.indexOf(",", word.indexOf("\""));
-        String wordWithoutReplacedThing = "";
-        if(indexOFReplacer != -1){
 
-            wordWithoutReplacedThing = word.substring(0, indexOFReplacer)+ word.substring(indexOFReplacer +1, word.length());
-
-        }
-        return wordWithoutReplacedThing;
-    }
 }
