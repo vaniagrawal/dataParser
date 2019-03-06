@@ -26,7 +26,7 @@ public class Utils {
     public static ArrayList<ElectionResult> parse2018ElectionResults(String data) {
         ArrayList<ElectionResult> result = new ArrayList<>();
         String[] lines = data.split("\n");
-        String[] linesArray;
+        String[] linesArray = new String[0];
 
         for (int i = 1; i < lines.length; i++) {
             int indexOfQuote = lines[i].indexOf("\"");
@@ -48,10 +48,9 @@ public class Utils {
         double total_votes = Double.parseDouble(linesArray[3]);
         double per_dem = Double.parseDouble(linesArray[4]);
         double per_gop = Double.parseDouble(linesArray[5]);
-        String diffString = replaceAll(",",linesArray[6]);
-        double diff = Double.parseDouble(diffString);
-        String per_diff_String = replaceAll("%",linesArray[7]);
-        double per_point_diff = Double.parseDouble(per_diff_String);
+
+        double diff = Double.parseDouble(linesArray[6]);
+        double per_point_diff = Double.parseDouble(linesArray[7].replaceAll("%", ""));
         String state_abbr = linesArray[8];
         String county_name = linesArray[9];
         double combined_fips = Double.parseDouble(linesArray[10]);
