@@ -1,6 +1,6 @@
 public class ElectionResult {
-    double votes_dem, votes_gop, total_votes, per_dem, per_gop, diff, per_point_diff, combined_fips;
-    String state_abbr, county_name;
+    private double votes_dem, votes_gop, total_votes, per_dem, per_gop, diff, per_point_diff, combined_fips;
+    private String state_abbr, county_name;
     public ElectionResult(double votes_dem, double votes_gop, double total_votes, double per_dem, double per_gop, double diff, double per_point_diff, String state_abbr, String county_name, double combined_fips){
         this.votes_dem = votes_dem;
         this.votes_gop = votes_gop;
