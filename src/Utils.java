@@ -1,10 +1,9 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.length;
+import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 
 public class Utils {
     public static String readFileAsString(String filepath) {
@@ -63,5 +62,63 @@ public class Utils {
 
     }
 
+    public static ArrayList<Education2016> parseEducationData(String data) {
+        ArrayList<Education2016> results = new ArrayList<>();
+        String[] rows = data.split("\n");
+        ArrayList<String> rowsList = new ArrayList<>();
+
+        for (String s : rows) {
+            rowsList.add(s);
+        }
+
+        ArrayList<String> labels = formatArray(rowsList.get(4));
+
+        for (int i = 5; i < labels.size(); i++) {
+            ArrayList<String> valsList = formatArray(rowsList.get(i));
+            double noHighSchool = Double.parseDouble(valsList.get(labels.indexOf("Percent of adults with less than a high school diploma 2012-2016")));
+            double onlyHighSchool = Double.parseDouble(valsList.get(labels.indexOf("Percent of adults with a high school diploma only 2012-2016")));
+            double someCollege = Double.parseDouble(valsList.get(labels.indexOf("Percent of adults completing some college or associate's degree 2012-2016")));
+            double bachelors = Double.parseDouble(valsList.get(labels.indexOf("Percent of adults with a bachelor's degree or higher 2012-2016")));
+            Education2016 educationObject = new Education2016(noHighSchool, onlyHighSchool, someCollege, bachelors);
+            results.add(educationObject);
+        }
+        return results;    }
+
+    public static ArrayList<Employment2016> parseEmploymentData(String data) {
+        ArrayList<Employment2016> results = new ArrayList<>();
+        String[] rows = data.split("\n");
+        ArrayList<String> list = new ArrayList<>();
+
+        for (String piece : rows) {
+            list.add(piece);
+        }
+
+        ArrayList<String> labels = formatArray(list.get(7));
+
+        for (int i = 8; i < labels.size(); i++) {
+            ArrayList<String> vals = formatArray(list.get(i));
+            double totalLaborForce = Double.parseDouble(vals.get(labels.indexOf("Civilian_labor_force_2016")));
+            double unemployedPercentage = Double.parseDouble(vals.get(labels.indexOf("Unemployment_rate_2016")));
+            double employedNum = Double.parseDouble(vals.get(labels.indexOf("Employed_2016")));
+            double unemployedNum = Double.parseDouble(vals.get(labels.indexOf("Unemployed_2016")));
+            Employment2016 employmentObject = new Employment2016(totalLaborForce, unemployedPercentage, employedNum, unemployedNum);
+            results.add(employmentObject);
+        }
+        return results;    }
+    private static ArrayList<String> formatArray(String word) {
+        word.replace("\"", "");
+        String[] arr = word.split(",", -1);
+        ArrayList<String> vals = new ArrayList<>();
+        for (String string : arr) {
+            vals.add(word);
+        }
+        for (int i = 0; i < vals.size(); i++) {
+            vals.get(i).trim();
+            if(vals.get(i).isEmpty()){
+                vals.set(i, "0");
+            }
+        }
+        return vals;
+    }
 
 }
